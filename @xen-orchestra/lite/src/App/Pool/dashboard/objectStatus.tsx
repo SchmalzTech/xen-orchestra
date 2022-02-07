@@ -44,6 +44,7 @@ const getHostPowerState = (host: Host) => {
   return $metrics ? ($metrics.live ? 'Running' : 'Halted') : 'Unknown'
 }
 
+// TODO: create our own CircularProgress component to display active/inactive colors
 const ObjectStatus = withState<State, Props, Effects, Computed, ParentState, ParentEffects>(
   {
     computed: {
