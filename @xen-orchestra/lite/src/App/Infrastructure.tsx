@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { withState } from 'reaclette'
 import { withRouter } from 'react-router'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, RouteComponentProps } from 'react-router-dom'
 
 import TabConsole from './TabConsole'
 import TreeView from './TreeView'
 import Pool from './Pool'
+import { ObjectsByType } from '../libs/xapi'
 
 const Container = styled.div`
   display: flex;
@@ -22,22 +23,22 @@ const LeftPanel = styled.div`
 // `overflow: hidden` forces the console to shrink to the max available width
 // even when the tree component takes more than 20% of the width due to
 // `min-width`
-
-// FIXME: overflow: hidden;
 const MainPanel = styled.div`
-  overflow-y: scroll;
+  overflow: hidden;
   width: 80%;
 `
 
-interface ParentState {}
+interface ParentState {
+  objectsByType: ObjectsByType
+}
 
 interface State {
+  selectedPool?: string
   selectedVm?: string
 }
 
-interface Props {
-  location: object
-}
+// For compatibility with 'withRouter'
+interface Props extends RouteComponentProps {}
 
 interface ParentEffects {}
 
@@ -47,24 +48,31 @@ interface Effects {
 
 interface Computed {}
 
+const selectedNodestoArray = (nodes: Array<string> | string | undefined) =>
+  nodes === undefined ? undefined : Array.isArray(nodes) ? nodes : [nodes]
+
 const Infrastructure = withState<State, Props, Effects, Computed, ParentState, ParentEffects>(
   {
     initialState: props => ({
       selectedVm: props.location.pathname.split('/')[3],
     }),
+    computed: {
+      selectedPool: state => state.objectsByType?.get('pool')?.keySeq().first(),
+    },
   },
-  ({ state: { selectedVm } }) => (
+  ({ state: { selectedVm, selectedPool }, ...props }) => (
     <Container>
       <LeftPanel>
-        <TreeView defaultSelectedNodes={selectedVm === undefined ? undefined : [selectedVm]} />
+        <TreeView
+          defaultSelectedNodes={selectedNodestoArray(
+            props.location.pathname === '/infrastructure/pool/dashboard' ? selectedPool : selectedVm
+          )}
+        />
       </LeftPanel>
       <MainPanel>
         <Switch>
           <Route exact path='/infrastructure/pool/dashboard'>
-            <Pool />
-          </Route>
-          <Route exact path='/infrastructure/pool/system'>
-            <Pool />
+            <Pool id={selectedPool} />
           </Route>
           <Route
             path='/infrastructure/vms/:id/console'

@@ -1,14 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 import { withState } from 'reaclette'
-import { Switch, Route } from 'react-router-dom'
-import { Map } from 'immutable'
 
-import Tabs from '../../components/Tabs'
 import Dashboard from './dashboard'
 import Icon from '../../components/Icon'
 import PanelHeader from '../../components/PanelHeader'
-import { ObjectsByType, Pool } from '../libs/xapi'
+import { ObjectsByType, Pool as PoolType } from '../../libs/xapi'
 
 interface ParentState {
   objectsByType: ObjectsByType
@@ -25,46 +21,27 @@ interface ParentEffects {}
 interface Effects {}
 
 interface Computed {
-  pools?: Map<string, Pool>
-  pool?: Pool
+  pool?: PoolType
 }
 
-const PoolInfo = withState<State, Props, Effects, Computed, ParentState, ParentEffects>(
+// TODO: add tabs when https://github.com/vatesfr/xen-orchestra/pull/6096 is merged
+const Pool = withState<State, Props, Effects, Computed, ParentState, ParentEffects>(
   {
-    /*initialState: props => ({
-        selectedVm: props.location.pathname.split('/')[3],
-      }),*/
     computed: {
-      pools: state => state.objectsByType?.get('pool'),
-      pool: ({ pools }) => pools?.get(pools?.keySeq().first()),
+      pool: (state, props) => state.objectsByType?.get('pool')?.get(props.id),
     },
   },
-  ({ state: { pool } }) => {
-    // console.log(' HEY !!! ', pool)
-    return (
-      <>
-        <PanelHeader>
-          {' '}
-          <span>
-            <Icon icon='warehouse' color={'#0085FF'} /> {pool.name_label}
-          </span>
-        </PanelHeader>
-        <Tabs
-          list={[
-            {
-              pathname: '/infrastructure/pool/dashboard',
-              label: 'DASHBOARD',
-              component: <Dashboard />,
-            },
-            {
-              pathname: '/infrastructure/pool/system',
-              label: 'SYSTEM',
-            },
-          ]}
-        />
-      </>
-    )
-  }
+  ({ state: { pool } }) => (
+    <>
+      <PanelHeader>
+        {' '}
+        <span>
+          <Icon icon='warehouse' color='primary' /> {pool?.name_label}
+        </span>
+      </PanelHeader>
+      <Dashboard />
+    </>
+  )
 )
 
-export default PoolInfo
+export default Pool
