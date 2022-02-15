@@ -12,6 +12,7 @@
 > Users must be able to say: “I had this issue, happy to know it's fixed”
 
 - [Self service] Change identifiers used for VM templates to avoid them from being removed on XCP-ng upgrade
+- [Templates] Fix "incorrect state" error when trying to delete a default template
 
 ### Packages to release
 

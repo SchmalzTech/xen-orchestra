@@ -148,7 +148,7 @@ export const create = defer(async function ($defer, params) {
   }
 
   const xapiVm = await xapi.createVm(template._xapiId, params, checkLimits)
-  $defer.onFailure(() => xapi.VM_destroy(xapiVm.$ref, true, true))
+  $defer.onFailure(() => xapi.VM_destroy(xapiVm.$ref, { deleteDisks: true, force: true, bypassBlockedOperation: true }))
 
   const vm = xapi.xo.addObject(xapiVm)
 
@@ -381,7 +381,7 @@ const delete_ = defer(async function (
     }
   })
 
-  return xapi.VM_destroy(vm._xapiRef, deleteDisks, force, forceDeleteDefaultTemplate)
+  return xapi.VM_destroy(vm._xapiRef, { deleteDisks, force, forceDeleteDefaultTemplate })
 })
 
 delete_.params = {
