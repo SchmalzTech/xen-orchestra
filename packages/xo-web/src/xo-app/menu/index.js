@@ -321,7 +321,6 @@ export default class Menu extends Component {
           },
         ],
       },
-      {
       isAdmin && {
         to: '/settings/servers',
         icon: 'menu-settings',
