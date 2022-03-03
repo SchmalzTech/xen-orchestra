@@ -248,8 +248,6 @@ export default class XoApp extends Component {
                   <Link to='/xoa/update'>{_('notRegisteredDisclaimerRegister')}</Link>
                 </div>
               )}
-              {plan === 'Community' && !this.state.dismissedSourceBanner && (
-              )}
               {isTrialRunning(trial.trial) && !this.state.dismissedTrialBanner && (
                 <div className='alert alert-info mb-0'>
                   {_('trialLicenseInfo', {
