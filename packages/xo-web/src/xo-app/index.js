@@ -153,7 +153,8 @@ export default class XoApp extends Component {
       alert(
         Welcome
         <div>
-          <p>This Xen Orchestra instance was built from public source code and is intended to be maintained by Prime Support Technology Consulting for its clients. Do not contact the upstream developers for support. Please call our helpdesk at 231-683-1400.</p>
+          <p>This Xen Orchestra instance was built from public source code and is intended to be maintained by Prime Support Technology Consulting for its clients. Do not contact the upstream developers for support. Please call our helpdesk at 231-683-1400.
+          </p>
           <p>
             <a href='https://primesupport.net'>
               Prime Support Technology Consulting
