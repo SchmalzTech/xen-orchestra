@@ -166,7 +166,6 @@ export default class XoApp extends Component {
 
   componentDidMount() {
     this.refs.bodyWrapper.style.minHeight = this.refs.menu.getWrappedInstance().height + 'px'
-    }
   }
 
   _shortcutsHandler = (command, event) => {
