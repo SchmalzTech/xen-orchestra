@@ -150,21 +150,6 @@ export default class XoApp extends Component {
     const now = Math.floor(Date.now() / 1e3)
     const oneWeekAgo = now - 7 * 24 * 3600
     if (!previousDisclaimer || previousDisclaimer < oneWeekAgo) {
-      alert(
-        Welcome
-        <div>
-          <p>This Xen Orchestra instance was built from public source code and is intended to be maintained by Prime Support Technology Consulting for its clients. Do not contact the upstream developers for support. Please call our helpdesk at 231-683-1400.
-          </p>
-          <p>
-            <a href='https://primesupport.net'>
-              Prime Support Technology Consulting
-            </a><br/>
-            <a href='https://xen-orchestra.com/#!/xoa?pk_campaign=xoa_source_upgrade&pk_kwd=ossmodal'>
-              XOA (turnkey appliance)
-            </a>
-          </p>
-        </div>
-      )
       cookies.set('previousDisclaimer', now)
     }
   }
