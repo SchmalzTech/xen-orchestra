@@ -78,9 +78,9 @@ export default class About extends Component {
                   <h2 className='text-info'>Xen Orchestra Supported by Prime Support Technology Consulting</h2>
                   <h4 className='text-info'>
 For support, please contact us at 231-683-1400. This custom build is not maintained or supported by Vates and is intended only for Prime Support's existing clients.
-                   <br/>     <a href='https://primesupport.net'>
+                   <br/>     <a href='https://primesupport.net' target=blank>
                           https://primesupport.net
-                        </a><br/>Source code for this build derived from <a href="https://github.com/SchmalzTech/xen-orchestra" target=_blank> here</a>
+                        </a><br/>Source code for this build derived from <a href="https://github.com/SchmalzTech/xen-orchestra" target=blank> here</a>
                   </h4>
                 </Col>
               </Row>
